@@ -1,0 +1,11 @@
+sonarqube:
+  image: sonarqube
+        #image: grzesiekw/sonar
+  ports:
+   - 9000:9000
+  expose:
+   - 9000:9000
+  environment:
+   - SONAR_JDBC_URL=jdbc:mysql://192.168.56.71:33306/dhl_sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+   - SONAR_DB_USERNAME=dhl_sonar
+   - SONAR_DB_PASSWORD=dhl_sonar
