@@ -15,4 +15,6 @@ RUN sed -i s*sonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar*sonar.jdbc.url=\$
     sed -i s*sonar.jdbc.username=sonar*sonar.jdbc.username=\${env:SONAR_DB_USERNAME}*g /opt/sonar/conf/sonar.properties && \
     sed -i s*sonar.jdbc.password=sonar*sonar.jdbc.password=\${env:SONAR_DB_PASSWORD}*g /opt/sonar/conf/sonar.properties
 
+EXPOSE 9000
+
 CMD /opt/sonar/bin/linux-x86-64/sonar.sh console
