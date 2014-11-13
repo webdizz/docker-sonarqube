@@ -1,6 +1,5 @@
 sonarqube:
   image: sonarqube
-        #image: grzesiekw/sonar
   ports:
    - 9000:9000
   expose:
