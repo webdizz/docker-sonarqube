@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y unzip && apt-get clean
 
-ENV SONARQUBE_VERSION 4.5.1
+ENV SONARQUBE_VERSION 5.0.1
 RUN curl -sLo sonarqube-${SONARQUBE_VERSION}.zip http://dist.sonar.codehaus.org/sonarqube-${SONARQUBE_VERSION}.zip && \
     unzip sonarqube-${SONARQUBE_VERSION}.zip -d /tmp && \
     mv /tmp/sonarqube-${SONARQUBE_VERSION} /opt/sonar && \
