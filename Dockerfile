@@ -1,4 +1,4 @@
-FROM webdizz/baseimage-java8:latest
+FROM webdizz/baseimage-java8:8u45
 
 MAINTAINER Izzet Mustafaiev "izzet@mustafaiev.com"
 
@@ -6,8 +6,8 @@ ENV DEBIAN_FRONTEND noninteractive
 
 RUN apt-get update && apt-get install -y unzip && apt-get clean
 
-ENV SONARQUBE_VERSION 5.0.1
-RUN curl -sLo sonarqube-${SONARQUBE_VERSION}.zip http://dist.sonar.codehaus.org/sonarqube-${SONARQUBE_VERSION}.zip && \
+ENV SONARQUBE_VERSION 5.1
+RUN curl --progress-bar -v -sLo sonarqube-${SONARQUBE_VERSION}.zip http://dist.sonar.codehaus.org/sonarqube-${SONARQUBE_VERSION}.zip && \
     unzip sonarqube-${SONARQUBE_VERSION}.zip -d /tmp && \
     mv /tmp/sonarqube-${SONARQUBE_VERSION} /opt/sonar && \
     rm sonarqube-${SONARQUBE_VERSION}.zip
