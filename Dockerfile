@@ -1,16 +1,18 @@
-FROM webdizz/baseimage-java8:8u45
+FROM webdizz/baseimage-java8:8u60
 
 MAINTAINER Izzet Mustafaiev "izzet@mustafaiev.com"
 
 ENV DEBIAN_FRONTEND noninteractive
 
-RUN apt-get update && apt-get install -y unzip && apt-get clean
+ENV SONARQUBE_VERSION 5.1.2
 
-ENV SONARQUBE_VERSION 5.1
-RUN curl --progress-bar -v -sLo sonarqube-${SONARQUBE_VERSION}.zip http://dist.sonar.codehaus.org/sonarqube-${SONARQUBE_VERSION}.zip && \
-    unzip sonarqube-${SONARQUBE_VERSION}.zip -d /tmp && \
-    mv /tmp/sonarqube-${SONARQUBE_VERSION} /opt/sonar && \
-    rm sonarqube-${SONARQUBE_VERSION}.zip
+RUN apt-get update && apt-get install -y unzip && apt-get clean \
+    &&  curl --progress-bar -v -sLo sonarqube-${SONARQUBE_VERSION}.zip http://dist.sonar.codehaus.org/sonarqube-${SONARQUBE_VERSION}.zip \
+    && unzip sonarqube-${SONARQUBE_VERSION}.zip -d /tmp \
+    && mv /tmp/sonarqube-${SONARQUBE_VERSION} /opt/sonar \
+    && rm sonarqube-${SONARQUBE_VERSION}.zip \
+    && apt-get remove -y --purge unzip \
+    && apt-get autoremove -y gir1.2-glib-2.0 gsfonts libdbus-glib-1-2 libfontenc1 libfreetype6 libgirepository-1.0-1 libxfont1 python-pycurl python3-apt python3-dbus python3-gi python3-pycurl unattended-upgrades
 
 RUN sed -i s*#sonar.jdbc.url=jdbc:h2:tcp://localhost:9092/sonar*sonar.jdbc.url=\${env:SONAR_JDBC_URL}*g /opt/sonar/conf/sonar.properties && \
     sed -i s*#sonar.jdbc.username=sonar*sonar.jdbc.username=\${env:SONAR_DB_USERNAME}*g /opt/sonar/conf/sonar.properties && \
